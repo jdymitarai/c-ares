@@ -36,7 +36,6 @@
 /* library-private global vars with source visibility restricted to this file */
 
 static unsigned int ares_initialized;
-static int          ares_init_flags;
 
 /* library-private global vars with visibility across the whole library */
 
@@ -134,9 +133,7 @@ int ares_library_init(int flags)
   }
   ares_initialized++;
 
-  /* NOTE: ARES_LIB_INIT_WIN32 flag no longer used */
-
-  ares_init_flags = flags;
+  (void)flags;
 
   return ARES_SUCCESS;
 }
@@ -173,7 +170,6 @@ void ares_library_cleanup(void)
   ares_library_cleanup_android();
 #endif
 
-  ares_init_flags = ARES_LIB_INIT_NONE;
   __ares_malloc   = default_malloc;
   __ares_realloc  = default_realloc;
   __ares_free     = default_free;
